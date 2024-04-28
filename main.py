@@ -1,3 +1,4 @@
+# Importing modules
 import termcolor2
 import colorama
 from time import sleep, time
@@ -8,26 +9,28 @@ import os
 
 os.system('cls')
 
-#Password generator
+# Password generator function
 def passwd(length):
         alpha = str("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
         numsym = str("""1234567890"!@#$%^&*(){[]?|\-=:";'<>,.?}/""")
         combine = alpha+numsym
         last = ''.join(random.choice(combine) for i in range(length))
         print("\n┌──A strong password of", user_input, "character for you: ", Fore.GREEN + last)
+        
+        # Creates a file and save all passwords to it 
         w = open("C:\Python 311\extpro\PassGen\All Passwords.txt", 'a')
         w.write("\n"+name+ " ==> " + last)
         w.close()
         return combine
 
-#Autoreset colors
+# Autoreset colors
 colorama.init(autoreset=True)
 
-#Statements
+# Statements
 print(Fore.YELLOW + "\nGreetings !")
 print(Fore.YELLOW + "\nIts good to have a strong password. Let's make one for you -->")
 
-#Main menu
+# Main menu
 x = "\n[1] Make password for you"
 y = "\n[99] Exit"
 print(Fore.CYAN + x, Fore.CYAN + y)
@@ -37,12 +40,12 @@ while user_choice=='1':
     os.system("cls")
     passwd
     
-#User choice of password length
+# User define password length
     name = input("\nAssign a Name to your password to remember: ")
     user_input = int(input("Enter the length of password you want: "))
     passwd(user_input)
     
-#Note
+# Note of where password is saved 
     print("└─>Your password is saved at ", Fore.GREEN + "(C:\Python 311\extpro\PassGen\All Passwords.txt)")
     print("")
 
@@ -51,7 +54,7 @@ while user_choice=='1':
     if nxt=='Y' or nxt=='y':
         passwd
 
-#Exit script
+# Exit script
     elif nxt=='N' or nxt=='n':
         print(Fore.RED + "\nOperation Aborted by user !")
         break
