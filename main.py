@@ -8,8 +8,6 @@ import nacl.secret
 import nacl.utils
 import chardet
 
-# branding about maker
-
 # platform check
 def plt_check_fun():      
     plt_check = platform.system()
@@ -22,6 +20,13 @@ def plt_check_fun():
 
 plt_check_fun()
 
+# branding about maker
+print(Fore.GREEN + "\n╔═╗┬ ┬╔═╗┌─┐┌─┐┌─┐")
+print(Fore.GREEN + "╠═╝└┬┘╠═╝├─┤└─┐└─┐")
+print(Fore.GREEN + "╩   ┴ ╩  ┴ ┴└─┘└─┘")
+print("\nDeveloped by: https://github.com/G0dVai")
+print("[ A simple Password generator and manager. ]")
+
 # Password generator
 def passwd(length):
         alpha = str("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
@@ -31,7 +36,7 @@ def passwd(length):
         print("\n┌──A strong password of", user_input, "character for you:", Fore.GREEN + last)
         w = open(r"savedpass.txt", 'a')
         w.write("\n"+name+ " ---> " + last)
-        w.close()
+        w.close
         return combine
     
 # Password encrypter and decrypted
