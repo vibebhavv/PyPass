@@ -1,7 +1,7 @@
 
-# Project Title
+# PyPass
 
-🐍A python based Password generator and manager.🐍
+🐍A python based CLI Password generator and manager. It generates random password of custom length and then save it inside a file to make it secure it encrypts all the passwords inside the file so no one can read it unless they have the Decrypting key.
 
 
 ## Installation and Usage
