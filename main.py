@@ -1,4 +1,3 @@
-import termcolor2
 import colorama
 from colorama import Fore
 import random
@@ -6,7 +5,6 @@ import os
 import platform 
 import nacl.secret
 import nacl.utils
-import chardet
 
 # platform check
 def plt_check_fun():      
@@ -29,91 +27,37 @@ print("[ A simple Password generator and manager. ]")
 
 # Password generator
 def passwd(length):
-        alpha = str("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
-        numsym = r"""1234567890"!@#$%^&*(){[]?|\-=:";'<>,.?}/"""
-        combine = alpha+numsym
-        last = ''.join(random.choice(combine) for i in range(length))
-        print("\n┌──A strong password of", user_input, "character for you:", Fore.GREEN + last)
-        w = open(r"savedpass.txt", 'a')
-        w.write("\n"+name+ " ---> " + last)
-        w.close
-        return combine
+    alpha = str("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz")
+    numsym = r"""1234567890"!@#$%^&*(){[]?|\-=:";'<>,.?}/"""
+    combine = alpha+numsym
+    last = ''.join(random.choice(combine) for i in range(length))
+    print("\n┌──A strong password of", length, "characters for you:", Fore.GREEN + last)
+    return last
+
+def encrypt_data(data, key):
+    # Create a secret box with the key
+    box = nacl.secret.SecretBox(key)
     
-# Password encrypter and decrypted
-def encrypt_data():
+    # Encrypt the data
+    encrypted_data = box.encrypt(data.encode())
+    
+    return encrypted_data
 
-    # Generate a random key
-    key = nacl.utils.random(nacl.secret.SecretBox.KEY_SIZE)
-
+def decrypt_data(encrypted_data, key):
     # Create a secret box with the key
     box = nacl.secret.SecretBox(key)
-
-    # Function to encrypt a string
-    def encrypt_string(string, box):
-        return box.encrypt(string.encode()).ciphertext
-
-    # Encrypt all strings in a file and overwrite the original file
-    def encrypt_file(input_file, box):
-        with open(input_file, 'rb') as f:
-            plaintext = f.read()
-            encrypted = box.encrypt(plaintext)
-            
-        with open(input_file, 'wb') as f:
-            f.write(encrypted)
-            
-        # Save the key for decryption
-        with open(input_file + ".key", 'wb') as f:
-            f.write(key)
-
-    # Encrypt the strings in the input file
-    encrypt_file('savedpass.txt', box)
-
-
-def decrypt_data():
-
-    # Load the key from the file
-    with open('savedpass.txt.key', 'rb') as f:
-        key = f.read()
-
-    # Create a secret box with the key
-    box = nacl.secret.SecretBox(key)
-
-    def decrypt_file(input_file, box):
-        with open(input_file, 'rb') as f:
-            encrypted_data = f.read()
-
-        print(Fore.YELLOW + "\nLoading all saved passwords...")
-
-        # Split the encrypted data into individual strings
-        encrypted_strings = encrypted_data.split(b'\n')
-
-        for encrypted_string in encrypted_strings:
-            if encrypted_string:
-                decrypted = box.decrypt(encrypted_string)
-
-                # Detect the encoding
-                result = chardet.detect(decrypted)
-                encoding = result['encoding']
-
-                if encoding:
-                    try:
-                        decoded_string = decrypted.decode(encoding, errors='replace')
-                        print("\n" + Fore.GREEN + decoded_string)
-                    except UnicodeDecodeError:
-                        print(Fore.RED + "\nError: Unable to decode the decrypted data.")
-                else:
-                    print(Fore.RED + "\nError: Unable to detect the encoding of the decrypted data.")
-
-    # Decrypt the encrypted file and print the decrypted content
-    decrypt_file('savedpass.txt', box)
-
+    
+    # Decrypt the data
+    decrypted_data = box.decrypt(encrypted_data).decode()
+    
+    return decrypted_data
 
 #Autoreset colors
 colorama.init(autoreset=True)
 
 #Statements
 print(Fore.YELLOW + "\nGreetings !")
-print(Fore.YELLOW + "\nIts good to have a strong password. Let's make one for you ──>")
+print(Fore.YELLOW + "\nIt's good to have a strong password. Let's make one for you ──>")
 
 #Main menu
 x = "\n[1] Make password for you"
@@ -123,39 +67,61 @@ z = "\n[99] Exit"
 print(Fore.CYAN + x, Fore.CYAN + y, Fore.CYAN + z)
 user_choice = input("\n[+] Choose from above: ")
 
-while user_choice=='1':
-    plt_check_fun()
-    passwd
-    
-#User choice of password length
-    name = input("\n[*] Assign a Name to your password to remember: ")
-    user_input = int(input("[+] Enter the length of password you want: "))
-    passwd(user_input)
-    
-#Note
-    print("└─>Your password is saved at:", Fore.GREEN + "savedpass.txt")
-    encrypt_data()
-    print("")
+key_path = "encpasskey.key"
 
-    nxt = input("[+] Wan't to generate more passwords [Y/N]: ")
+# Check if key file exists, if not generate and save the key
+if not os.path.exists(key_path):
+    key = nacl.utils.random(nacl.secret.SecretBox.KEY_SIZE)
+    with open(key_path, 'wb') as key_file:
+        key_file.write(key)
+else:
+    # Load the key from file
+    with open(key_path, 'rb') as key_file:
+        key = key_file.read()
 
-    if nxt=='Y' or nxt=='y':
-        passwd
-
-#Exit script
-    elif nxt=='N' or nxt=='n':
-        print(Fore.RED + "\n[!] Operation Aborted by user !")
-        break
-
-    elif nxt!='N' or nxt!='n':
-            print(Fore.RED + "\n[!] Wrong Input!")
+while True:
+    if user_choice == '1':
+        plt_check_fun()
+        # User choice of password length
+        name = input("\n[*] Assign a Name to your password to remember: ")
+        user_input = int(input("[+] Enter the length of password you want: "))
+        password = passwd(user_input)
+        
+        # Encrypt the password and save it
+        encrypted_password = encrypt_data(password, key)
+        
+        with open("savedpass.txt", 'a') as f:
+            f.write(name + " ---> " + encrypted_password.hex() + "\n")
+        
+        print("└─>Your password is saved at:", Fore.GREEN + "savedpass.txt")
+        
+        nxt = input("\n[+] Want to generate more passwords [Y/N]: ")
+        
+        if nxt.lower() != 'y':
+            print(Fore.RED + "\n[!] Operation Aborted by user !")
             break
-
-if user_choice=='2':
-    plt_check_fun()
-    decrypt_data()
-    input("\nPress Enter to continue...")
-
-if user_choice=='99':
-        print(termcolor2.colored("\nGood Bye, Have a Nice Day :)", 'magenta'))
-        exit
+    
+    elif user_choice == '2':
+        plt_check_fun()
+        print(Fore.YELLOW + "[>] Loading all saved passwords...\n") 
+        
+        with open("savedpass.txt", 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                parts = line.split(" ---> ")
+                if len(parts) == 2:
+                    name, encrypted_password_hex = parts
+                    encrypted_password = bytes.fromhex(encrypted_password_hex.strip())
+                    decrypted_password = decrypt_data(encrypted_password, key)
+                    print(name.strip(), "--->", decrypted_password)
+        
+        input("\nPress Enter to continue...")
+        break
+    
+    elif user_choice == '99':
+        print(Fore.MAGENTA + "\nGoodbye, Have a Nice Day :)")
+        break
+    
+    else:
+        print(Fore.RED + "\n[!] Invalid choice. Please choose again.")
+        user_choice = input("\n[+] Choose from above: ")
