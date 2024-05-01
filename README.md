@@ -6,7 +6,7 @@
 
 ## Installation and Usage
 
-Install my-project with npm
+Use git clone to copy the repo or download zip of the repo.
 
 ```bash
   git clone https://github.com/G0dVai/PyPass.git
