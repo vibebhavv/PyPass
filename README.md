@@ -22,7 +22,7 @@ Install my-project with npm
 - saves passwords in encrypted form
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![first_screen](https://github.com/G0dVai/PyPass/assets/167416173/d29c9f9e-3e68-4f34-8361-ee7cdd6c43bf)
 
 
 ## 🔗 Connect with me
