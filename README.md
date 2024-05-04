@@ -1,10 +1,10 @@
 
-# PyPass
+# `🔐` PyPass
 
 🐍A python based CLI Password generator and manager. It generates random password of custom length and then save it inside a file to make it secure it encrypts all the passwords inside the file so no one can read it unless they have the Decrypting key.
 
 
-## Installation and Usage
+## `🛠️` Installation and Usage
 
 Use git clone to copy the repo or download zip of the repo.
 
@@ -15,7 +15,7 @@ Use git clone to copy the repo or download zip of the repo.
   python3 main.py
 ```
     
-## Features
+## `🌟` Features
 
 - Cross platform
 - generates random passwords of custom length
@@ -26,7 +26,7 @@ Use git clone to copy the repo or download zip of the repo.
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vaibhav-pathak-9202652b7)
 [![Instagram](https://img.shields.io/badge/instagram-833AB4?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/_vaibhavv._.11)
 
-## Screenshots
+## `📸` Screenshots
 
 ![first_screen](https://github.com/G0dVai/PyPass/assets/167416173/d29c9f9e-3e68-4f34-8361-ee7cdd6c43bf)
 
