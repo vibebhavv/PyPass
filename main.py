@@ -1,3 +1,9 @@
+'''
+Project: PyPass (Python based password generator and manager)
+Author: https://github.com/G0dVai
+[ DONT CHANGE ANY THING IF YOU DONT KNOW ANTHING ABOUT PROGRAMMING OR ELSE IT WILL AFFECT ENCRYPTIONA AND DECRYPTION !!! ]
+'''
+
 import colorama
 from colorama import Fore
 import random
