@@ -28,7 +28,7 @@ plt_check_fun()
 print(Fore.GREEN + "\n╔═╗┬ ┬╔═╗┌─┐┌─┐┌─┐")
 print(Fore.GREEN + "╠═╝└┬┘╠═╝├─┤└─┐└─┐")
 print(Fore.GREEN + "╩   ┴ ╩  ┴ ┴└─┘└─┘")
-print("\nDeveloped by: https://github.com/G0dVai")
+print("\nDeveloped by: https://github.com/vaiiibhaavv")
 print("[ A simple Password generator and manager. ]")
 
 # Password generator
