@@ -28,7 +28,7 @@ plt_check_fun()
 print(Fore.GREEN + "\n╔═╗┬ ┬╔═╗┌─┐┌─┐┌─┐")
 print(Fore.GREEN + "╠═╝└┬┘╠═╝├─┤└─┐└─┐")
 print(Fore.GREEN + "╩   ┴ ╩  ┴ ┴└─┘└─┘")
-print("\nDeveloped by: https://github.com/vaiiibhaavv")
+print("\nDeveloped by: https://github.com/vibebhavv")
 print("[ A simple Password generator and manager. ]")
 
 # Password generator
@@ -131,3 +131,4 @@ while True:
     else:
         print(Fore.RED + "\n[!] Invalid choice. Please choose again.")
         user_choice = input("\n[+] Choose from above: ")
+
