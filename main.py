@@ -1,6 +1,6 @@
 '''
 Project: PyPass (Python based password generator and manager)
-Author: https://github.com/G0dVai
+Author: https://github.com/vibebhavv
 [ DONT CHANGE ANY THING IF YOU DONT KNOW ANTHING ABOUT PROGRAMMING OR ELSE IT WILL AFFECT ENCRYPTIONA AND DECRYPTION !!! ]
 '''
 
@@ -131,4 +131,5 @@ while True:
     else:
         print(Fore.RED + "\n[!] Invalid choice. Please choose again.")
         user_choice = input("\n[+] Choose from above: ")
+
 
